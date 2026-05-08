@@ -1,6 +1,8 @@
 ipykernel
 pandas
 numpy
+sqlalchemy
+psycopg2-binary
 matplotlib
 plotly
 seaborn
@@ -8,6 +10,7 @@ scikit-learn
 pymongo
 from_root
 dill
+from-root
 certifi
 PyYAML
 boto3
