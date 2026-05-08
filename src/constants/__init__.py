@@ -6,7 +6,7 @@ POSTGRES_HOST = "localhost"
 POSTGRES_PORT = "5432"
 POSTGRES_DB = "mlops_db"
 POSTGRES_USER = "postgres"
-POSTGRES_PASSWORD = "Kaushik@13"
+POSTGRES_PASSWORD = "Kaushik13"
 
 PIPELINE_NAME: str = ""
 ARTIFACT_DIR: str = "artifact"
