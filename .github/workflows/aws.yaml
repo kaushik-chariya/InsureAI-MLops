@@ -28,7 +28,7 @@ jobs:
       - name: Build Docker Image
         env:
           ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
-          ECR_REPOSITORY: ${{ secrets.ECR_REPO }}
+          ECR_REPOSITORY: mlops-project
           IMAGE_TAG: latest
 
         run: |
@@ -51,7 +51,6 @@ jobs:
           aws-region: ${{ secrets.AWS_DEFAULT_REGION }}
 
       - name: Login to Amazon ECR
-        id: login-ecr
         uses: aws-actions/amazon-ecr-login@v2
 
       - name: Stop Old Container
@@ -64,16 +63,10 @@ jobs:
           docker image prune -af || true
 
       - name: Pull Latest Docker Image
-        env:
-          IMAGE_URI: ${{ steps.login-ecr.outputs.registry }}/${{ secrets.ECR_REPO }}:latest
-
         run: |
-          docker pull $IMAGE_URI
+          docker pull 343980058839.dkr.ecr.us-east-1.amazonaws.com/mlops-project:latest
 
       - name: Run Docker Container
-        env:
-          IMAGE_URI: ${{ steps.login-ecr.outputs.registry }}/${{ secrets.ECR_REPO }}:latest
-
         run: |
           docker run -d \
             --name mlops-container \
@@ -86,4 +79,4 @@ jobs:
             -e POSTGRES_DB="${{ secrets.POSTGRES_DB }}" \
             -e POSTGRES_USER="${{ secrets.POSTGRES_USER }}" \
             -e POSTGRES_PASSWORD="${{ secrets.POSTGRES_PASSWORD }}" \
-            $IMAGE_URI
+            343980058839.dkr.ecr.us-east-1.amazonaws.com/mlops-project:latest
