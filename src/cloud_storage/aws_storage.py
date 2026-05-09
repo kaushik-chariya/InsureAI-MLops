@@ -24,6 +24,7 @@ class SimpleStorageService:
         """
         s3_client = S3Client()
         self.s3_resource = s3_client.s3_resource
+
         self.s3_client = s3_client.s3_client
 
     def s3_key_path_available(self, bucket_name, s3_key) -> bool:
