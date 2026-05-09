@@ -116,11 +116,14 @@ Use PostgreSQL as your backend database for data engineering, machine learning, 
 26. Add "static" and "template" dir to the project.
 
 27. Getting started with CI-CD process:
+
+    is already exist.............................. 
       * Setup the dockerfile and .dockerignore file
       * Setup the .github\workflows dir and aws.yaml file within
       * Go to AWS console and create a new IAM user exactly the way we did earlier (name: "usvisa-user") >>
         Go inside user >> Security Credentials >> Access Keys >> create access key >> CLI >> check agreement
         >> next >> create access key >> download csv
+
       * Now create one ECR repo to store/save docker image:
         AWS console >> Go to ECR >> Region: us-east-1 >> Hit create repository >>
         repo name: vehicleproj >> hit create repository >> copy and keep uri
