@@ -11,11 +11,11 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout Code
+      - name: Checkout
         uses: actions/checkout@v3
 
-      - name: Configure AWS Credentials
-        uses: aws-actions/configure-aws-credentials@v1
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v4
         with:
           aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
@@ -23,9 +23,9 @@ jobs:
 
       - name: Login to Amazon ECR
         id: login-ecr
-        uses: aws-actions/amazon-ecr-login@v1
+        uses: aws-actions/amazon-ecr-login@v2
 
-      - name: Build Docker Image
+      - name: Build, tag, and push image to Amazon ECR
         env:
           ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
           ECR_REPOSITORY: ${{ secrets.ECR_REPO }}
@@ -40,11 +40,11 @@ jobs:
     runs-on: self-hosted
 
     steps:
-      - name: Checkout Code
+      - name: Checkout
         uses: actions/checkout@v3
 
-      - name: Configure AWS Credentials
-        uses: aws-actions/configure-aws-credentials@v1
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v4
         with:
           aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
@@ -52,32 +52,27 @@ jobs:
 
       - name: Login to Amazon ECR
         id: login-ecr
-        uses: aws-actions/amazon-ecr-login@v1
+        uses: aws-actions/amazon-ecr-login@v2
 
-      - name: Stop and Remove Old Container
+      - name: Stop old container
         run: |
           docker stop mlops-container || true
           docker rm mlops-container || true
 
-      - name: Remove Old Docker Image
-        run: |
-          docker rmi $(docker images -q) || true
-
-      - name: Pull Latest Docker Image
+      - name: Pull latest image
         run: |
           docker pull ${{ steps.login-ecr.outputs.registry }}/${{ secrets.ECR_REPO }}:latest
 
-      - name: Run Docker Container
+      - name: Run Docker container
         run: |
-          docker run -d \
-            --name mlops-container \
-            -p 5000:5000 \
-            -e AWS_ACCESS_KEY_ID="${{ secrets.AWS_ACCESS_KEY_ID }}" \
-            -e AWS_SECRET_ACCESS_KEY="${{ secrets.AWS_SECRET_ACCESS_KEY }}" \
-            -e AWS_DEFAULT_REGION="${{ secrets.AWS_DEFAULT_REGION }}" \
-            -e POSTGRES_HOST="${{ secrets.POSTGRES_HOST }}" \
-            -e POSTGRES_PORT="${{ secrets.POSTGRES_PORT }}" \
-            -e POSTGRES_DB="${{ secrets.POSTGRES_DB }}" \
-            -e POSTGRES_USER="${{ secrets.POSTGRES_USER }}" \
-            -e POSTGRES_PASSWORD="${{ secrets.POSTGRES_PASSWORD }}" \
-            ${{ steps.login-ecr.outputs.registry }}/${{ secrets.ECR_REPO }}:latest
+          docker run -d --name mlops-container \
+          -p 5000:5000 \
+          -e AWS_ACCESS_KEY_ID=${{ secrets.AWS_ACCESS_KEY_ID }} \
+          -e AWS_SECRET_ACCESS_KEY=${{ secrets.AWS_SECRET_ACCESS_KEY }} \
+          -e AWS_DEFAULT_REGION=${{ secrets.AWS_DEFAULT_REGION }} \
+          -e POSTGRES_HOST=${{ secrets.POSTGRES_HOST }} \
+          -e POSTGRES_PORT=${{ secrets.POSTGRES_PORT }} \
+          -e POSTGRES_DB=${{ secrets.POSTGRES_DB }} \
+          -e POSTGRES_USER=${{ secrets.POSTGRES_USER }} \
+          -e POSTGRES_PASSWORD=${{ secrets.POSTGRES_PASSWORD }} \
+          ${{ steps.login-ecr.outputs.registry }}/${{ secrets.ECR_REPO }}:latest
