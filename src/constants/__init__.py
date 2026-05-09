@@ -80,5 +80,6 @@ MODEL_EVALUATION_CHANGED_THRESHOLD_SCORE: float = 0.02
 MODEL_BUCKET_NAME = "my-ml-model-mlops-project"
 MODEL_PUSHER_S3_KEY = "model-registry"
 
+
 APP_HOST = "0.0.0.0"
-APP_PORT = 5000
+APP_PORT = 8000
