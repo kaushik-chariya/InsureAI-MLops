@@ -46,25 +46,27 @@ Use PostgreSQL as your backend database for data engineering, machine learning, 
 16. EDA and Feature Engg notebook added.
 
 ----------------------------------------------- Data Ingestion -----------------------------------------------
-17. Before we work on "Data Ingestion" component >> Declare variables within constants.__init__.py file >> 
-    add code to configuration.mongo_db_connections.py file and define the func for mondodb connection >> 
-    Inside "data_access" folder, add code to proj1_data that will use mongo_db_connections.py
-    to connect with DB, fetch data in key-val format and transform that to df >>
-    add code to entity.config_entity.py file till DataIngestionConfig class >>
-    add code to entity.artifact_entity.py file till DataIngestionArtifact class >>
-    add code to components.data_ingestion.py file >> add code to training pipeline >> 
-    run demo.py (set mongodb connection url first, see next step)
-18. To setup the connection url on mac(also work for windows), open bash/powershell terminal and run below command:
-                        *** For Bash ***
-    set: export MONGODB_URL="mongodb+srv://<username>:<password>......"
-    check: echo $MONGODB_URL
-                        *** For Powershell ***
-    set: $env:MONGODB_URL = "mongodb+srv://<username>:<password>......"
-    check: echo $env:MONGODB_URL
 
-    To setup the connection url on Windows, open env variable setting option and add a new variable:
-    Name: MONGODB_URL, Value = <url>
-    Also add "artifact" dir to .gitignore file
+Before we work on "Data Ingestion" component >> Declare variables within constants.init.py file >>
+add code to configuration.postgres_db_connection.py file and define the func for postgresql connection >>
+Inside "data_access" folder, add code to proj1_data that will use postgres_db_connection.py
+to connect with DB, fetch data using pd.read_sql() and transform that to df >>
+add code to entity.config_entity.py file till DataIngestionConfig class >>
+add code to entity.artifact_entity.py file till DataIngestionArtifact class >>
+add code to components.data_ingestion.py file >> add code to training pipeline >>
+run demo.py (set postgresql connection url first, see next step)
+To setup the connection url on mac(also work for windows), open bash/powershell terminal and run below command:
+
+*** For Bash ***
+set: export POSTGRES_URL="postgresql+psycopg2://<username>:<password>@localhost:5432/vehicle_db"
+check: echo $POSTGRES_URL
+*** For Powershell ***
+set: $env:POSTGRES_URL = "postgresql+psycopg2://<username>:<password>@localhost:5432/vehicle_db"
+check: echo $env:POSTGRES_URL
+To setup the connection url on Windows, open env variable setting option and add a new variable:
+Name: POSTGRES_URL, Value = <url>
+Also add "artifact" dir to .gitignore file
+
 
 ---------------------------- Data Validation, Data Transformation & Model Trainer ----------------------------
 
@@ -159,8 +161,8 @@ Use PostgreSQL as your backend database for data engineering, machine learning, 
       ECR_REPO
 
 31. CI-CD pipeline will be triggered at next commit and push.
-32. Now we need to activate the 5000 port of our EC2 instance:
+32. Now we need to activate the 8000 port of our EC2 instance:
       * Go to the instance > Security > Go to Security Groups > Edit inbound rules > add rule
-        > type: Custom TCP > Port range: 5080 > 0.0.0.0/0 > Save rules
-33. Now paste the public ip address on the address bar +:5080 and your app will be launched.
+        > type: Custom TCP > Port range: 8000 > 0.0.0.0/0 > Save rules
+33. Now paste the public ip address on the address bar +:8000 and your app will be launched.
 34. You can also do model training on /training route
