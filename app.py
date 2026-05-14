@@ -8,7 +8,7 @@ from uvicorn import run as app_run
 from typing import Optional
 
 # =========================
-# PROJECT IMPORTS..
+# PROJECT IMPORTS....
 # =========================
 from src.constants import APP_HOST, APP_PORT
 
