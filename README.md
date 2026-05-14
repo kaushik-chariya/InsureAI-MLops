@@ -442,7 +442,6 @@ Then open: [http://localhost:8000](http://localhost:8000)
 | Step | Command / URL |
 |---|---|
 | Live App | http://18.208.179.218:8000 |
-| Trigger Training (Live) | http://18.208.179.218:8000/training |
 | Run Locally | `python app.py` → localhost:8000 |
 | Run with Docker | `docker build & docker run` → localhost:8000 |
 | Run Training Pipeline | `python demo.py` |
