@@ -25,6 +25,7 @@
 - [AWS Configuration](#-aws-configuration)
 - [CI/CD Deployment](#-cicd-deployment)
 - [Running the App](#-running-the-app)
+- [🚀 How to Run This Project](#-how-to-run-this-project)
 
 ---
 
@@ -356,6 +357,95 @@ http://<your-ec2-public-ip>:8000
 ```
 http://<your-ec2-public-ip>:8000/training
 ```
+
+---
+
+## 🚀 How to Run This Project
+
+> The application is **live and deployed** on AWS EC2. You can interact with it directly using the links below — no local setup required.
+
+### 🌍 Live Application URL
+
+| Action | URL |
+|---|---|
+| 🏠 Home / Prediction UI | [http://18.208.179.218:8000](http://18.208.179.218:8000) |
+| 🤖 Trigger Model Training | [http://18.208.179.218:8000/training](http://18.208.179.218:8000/training) |
+
+---
+
+### 🖥️ Option 1 — Use the Live App (No Setup Needed)
+
+1. Open your browser and go to:
+   ```
+   http://18.208.179.218:8000
+   ```
+2. Use the prediction UI to submit vehicle data and get a prediction.
+3. To retrain the model on fresh data, visit:
+   ```
+   http://18.208.179.218:8000/training
+   ```
+
+---
+
+### 💻 Option 2 — Run Locally
+
+**Prerequisites:** Python 3.10, Conda, PostgreSQL, Docker (optional)
+
+```bash
+# 1. Clone the repository
+git clone https://github.com/kaushik-chariya/vehicle-mlops.git
+cd vehicle-mlops
+
+# 2. Create and activate Conda environment
+conda create -n vehicle python=3.10 -y
+conda activate vehicle
+
+# 3. Install dependencies
+pip install -r requirements.txt
+
+# 4. Set environment variables
+export POSTGRES_URL="postgresql+psycopg2://<username>:<password>@localhost:5432/vehicle_db"
+export AWS_ACCESS_KEY_ID="your_access_key"
+export AWS_SECRET_ACCESS_KEY="your_secret_key"
+
+# 5. Run the training pipeline
+python demo.py
+
+# 6. Start the web application
+python app.py
+```
+
+Then open: [http://localhost:8000](http://localhost:8000)
+
+---
+
+### 🐳 Option 3 — Run with Docker
+
+```bash
+# 1. Build the Docker image
+docker build -t vehicle-mlops .
+
+# 2. Run the container
+docker run -p 8000:8000 \
+  -e POSTGRES_URL="postgresql+psycopg2://<username>:<password>@localhost:5432/vehicle_db" \
+  -e AWS_ACCESS_KEY_ID="your_access_key" \
+  -e AWS_SECRET_ACCESS_KEY="your_secret_key" \
+  vehicle-mlops
+```
+
+Then open: [http://localhost:8000](http://localhost:8000)
+
+---
+
+### ⚡ Quick Reference
+
+| Step | Command / URL |
+|---|---|
+| Live App | http://18.208.179.218:8000 |
+| Trigger Training (Live) | http://18.208.179.218:8000/training |
+| Run Locally | `python app.py` → localhost:8000 |
+| Run with Docker | `docker build & docker run` → localhost:8000 |
+| Run Training Pipeline | `python demo.py` |
 
 ---
 
