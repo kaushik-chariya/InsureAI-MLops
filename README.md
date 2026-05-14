@@ -1,4 +1,4 @@
-# 🚗 Vehicle MLOps Project
+# 🚗 InsureAI-MLops
 
 <div align="center">
 
@@ -59,7 +59,7 @@ This project implements a production-ready MLOps pipeline for vehicle data, cove
 ## 📁 Project Structure
 
 ```
-vehicle-mlops/
+InsureAI-MLops/
 │
 ├── src/
 │   ├── components/
@@ -393,8 +393,8 @@ http://<your-ec2-public-ip>:8000/training
 
 ```bash
 # 1. Clone the repository
-git clone https://github.com/kaushik-chariya/vehicle-mlops.git
-cd vehicle-mlops
+git clone https://github.com/kaushik-chariya/InsureAI-MLops.git
+cd InsureAI-MLops
 
 # 2. Create and activate Conda environment
 conda create -n vehicle python=3.10 -y
@@ -423,14 +423,14 @@ Then open: [http://localhost:8000](http://localhost:8000)
 
 ```bash
 # 1. Build the Docker image
-docker build -t vehicle-mlops .
+docker build -t insureai-mlops .
 
 # 2. Run the container
 docker run -p 8000:8000 \
   -e POSTGRES_URL="postgresql+psycopg2://<username>:<password>@localhost:5432/vehicle_db" \
   -e AWS_ACCESS_KEY_ID="your_access_key" \
   -e AWS_SECRET_ACCESS_KEY="your_secret_key" \
-  vehicle-mlops
+  insureai-mlops
 ```
 
 Then open: [http://localhost:8000](http://localhost:8000)
@@ -472,7 +472,7 @@ Made with ❤️ for end-to-end MLOps
 ### Kaushik Chariya
 
 [![LinkedIn](https://img.shields.io/badge/LinkedIn-Kaushik_Chariya-0A66C2?style=for-the-badge&logo=linkedin&logoColor=white)](https://www.linkedin.com/in/kaushik-chariya/)
-[![GitHub](https://img.shields.io/badge/GitHub-kaushik--chariya-181717?style=for-the-badge&logo=github&logoColor=white)](https://github.com/kaushik-chariya)
+[![GitHub](https://img.shields.io/badge/GitHub-kaushik--chariya-181717?style=for-the-badge&logo=github&logoColor=white)](https://github.com/kaushik-chariya/InsureAI-MLops)
 
 *Building production-ready ML systems, one pipeline at a time.*
 
